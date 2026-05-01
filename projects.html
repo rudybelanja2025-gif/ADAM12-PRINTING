@@ -2,16 +2,54 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Projects</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects - ADAM12 PRINTING</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Project Kami</h1>
-<div id="projectList"></div>
+<header>
+  <h1>ADAM12 PRINTING</h1>
+  <p>Percetakan, Advertising & Reklame</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="projects.html" class="active">Projects</a>
+  <a href="gallery.html">Gallery</a>
+</nav>
+
+<section class="hero">
+  <h2>Project Kami</h2>
+  <p>Beberapa hasil pekerjaan terbaik kami</p>
+</section>
+
+<section class="projects-container">
+  <div id="projectList" class="projects-grid"></div>
+</section>
+
+<footer>
+  <p>© 2026 ADAM12 PRINTING</p>
+</footer>
 
 <script src="data.js"></script>
-<script src="script.js"></script>
+<script>
+const container = document.getElementById("projectList");
+
+if (container && typeof projects !== "undefined") {
+  projects.forEach(p => {
+    container.innerHTML += `
+      <div class="project-card">
+        <img src="${p.image}" alt="${p.title}">
+        <div class="project-body">
+          <h3>${p.title}</h3>
+        </div>
+      </div>
+    `;
+  });
+}
+</script>
 
 </body>
 </html>
