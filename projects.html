@@ -1,55 +1,632 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects - ADAM12 PRINTING</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proyek — ADAM12 Printing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:   #0A0A0A;
+      --yellow:  #FFD600;
+      --green:   #1A7A2E;
+      --green2:  #25B041;
+      --cream:   #F5F0E8;
+      --gold:    #C9A800;
+      --gray:    #1C1C1C;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--black);
+      border-bottom: 2px solid var(--yellow);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: .08em;
+      color: var(--yellow);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--green2); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cream);
+      transition: color .2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--yellow); }
+
+    /* ── HERO HEADER ── */
+    .page-header {
+      position: relative;
+      padding: 80px 5vw 60px;
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: 'PROYEK';
+      position: absolute;
+      right: -2vw; top: 10px;
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(80px, 18vw, 220px);
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255,214,0,.07);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .breadcrumb {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .85rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .breadcrumb a { color: inherit; text-decoration: none; }
+    .breadcrumb a:hover { color: var(--yellow); }
+    .page-header h1 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      line-height: .95;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .page-header h1 em {
+      font-style: normal;
+      color: var(--yellow);
+      display: block;
+    }
+    .page-header p {
+      margin-top: 20px;
+      max-width: 520px;
+      color: rgba(245,240,232,.65);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .header-bar {
+      width: 80px; height: 4px;
+      background: var(--yellow);
+      margin: 24px 0 0;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-wrap {
+      padding: 0 5vw 40px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.4);
+      margin-right: 8px;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1.5px solid rgba(255,214,0,.25);
+      color: rgba(245,240,232,.7);
+      padding: 7px 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .2s;
+      border-radius: 2px;
+    }
+    .filter-btn:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+    .filter-btn.active {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: var(--black);
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      margin: 0 5vw 48px;
+      border: 1px solid rgba(255,214,0,.15);
+      border-left: 4px solid var(--yellow);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .stat-item {
+      flex: 1 1 160px;
+      padding: 18px 28px;
+      border-right: 1px solid rgba(255,214,0,.1);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 2.2rem;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.45);
+      margin-top: 4px;
+    }
+
+    /* ── PROJECT GRID ── */
+    .projects-wrap {
+      padding: 0 5vw 80px;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2px;
+    }
+
+    /* ── PROJECT CARD ── */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--gray);
+      cursor: pointer;
+      transition: transform .35s cubic-bezier(.22,1,.36,1);
+      animation: fadeUp .5s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .project-card:hover { transform: scale(1.015); z-index: 2; }
+
+    .card-img-wrap {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+    .card-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s cubic-bezier(.22,1,.36,1);
+      display: block;
+    }
+    .project-card:hover .card-img-wrap img { transform: scale(1.07); }
+
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, transparent 40%, rgba(10,10,10,.92) 100%);
+      transition: opacity .3s;
+    }
+    .project-card:hover .card-overlay { opacity: .6; }
+
+    .card-cat {
+      position: absolute;
+      top: 16px; left: 16px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 1px;
+    }
+    .card-year {
+      position: absolute;
+      top: 16px; right: 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .12em;
+      color: rgba(245,240,232,.5);
+    }
+
+    .card-body {
+      padding: 20px 24px 24px;
+      border-top: 2px solid rgba(255,214,0,.1);
+      transition: border-color .25s;
+    }
+    .project-card:hover .card-body { border-color: var(--yellow); }
+
+    .card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      color: var(--cream);
+    }
+    .card-size {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--green2);
+      margin-bottom: 12px;
+    }
+    .card-desc {
+      font-size: .88rem;
+      line-height: 1.6;
+      color: rgba(245,240,232,.55);
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      text-decoration: none;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity .25s, transform .25s;
+    }
+    .project-card:hover .card-link {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .card-link::after {
+      content: '→';
+      font-size: 1rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      display: none;
+      padding: 60px 0;
+      text-align: center;
+      color: rgba(245,240,232,.3);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      margin: 0 0 0;
+      background: var(--yellow);
+      padding: 48px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .cta-strip h2 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+      color: var(--black);
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .cta-strip h2 span { color: var(--green); display: block; }
+    .cta-btn {
+      background: var(--black);
+      color: var(--yellow);
+      border: none;
+      padding: 16px 36px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .2s;
+    }
+    .cta-btn:hover { background: var(--gray); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--gray);
+      border-top: 2px solid rgba(255,214,0,.12);
+      padding: 32px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer .logo {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      letter-spacing: .08em;
+    }
+    footer .logo span { color: var(--green2); }
+    footer p {
+      font-size: .8rem;
+      color: rgba(245,240,232,.3);
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: .08em;
+    }
+
+    /* ── MODAL ── */
+    .modal-bg {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .modal-bg.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--gray);
+      border: 1.5px solid rgba(255,214,0,.2);
+      max-width: 720px; width: 100%;
+      overflow: hidden;
+      transform: scale(.95) translateY(20px);
+      transition: transform .35s cubic-bezier(.22,1,.36,1);
+    }
+    .modal-bg.open .modal { transform: scale(1) translateY(0); }
+    .modal img {
+      width: 100%; aspect-ratio: 16/9;
+      object-fit: cover; display: block;
+    }
+    .modal-body {
+      padding: 28px 32px 32px;
+      border-top: 3px solid var(--yellow);
+    }
+    .modal-meta {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .modal-tag {
+      background: var(--yellow); color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      padding: 3px 12px;
+    }
+    .modal-tag.green { background: var(--green2); color: var(--black); }
+    .modal-tag.gold  { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+    .modal-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      color: var(--cream);
+    }
+    .modal-desc {
+      font-size: .95rem;
+      line-height: 1.75;
+      color: rgba(245,240,232,.65);
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: var(--black); border: none;
+      color: var(--cream); font-size: 1.4rem; line-height: 1;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      border: 1px solid rgba(255,214,0,.2);
+      transition: background .2s, color .2s;
+    }
+    .modal-close:hover { background: var(--yellow); color: var(--black); }
+    .modal-wrap { position: relative; }
+
+    @media (max-width: 640px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .stats-strip { flex-direction: column; }
+      .modal-body { padding: 20px; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>ADAM12 PRINTING</h1>
-  <p>Percetakan, Advertising & Reklame</p>
-</header>
-
+<!-- NAV -->
 <nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="projects.html" class="active">Projects</a>
-  <a href="gallery.html">Gallery</a>
+  <a class="nav-logo" href="index.html">ADAM<span>12</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="projects.html" class="active">Proyek</a></li>
+    <li><a href="gallery.html">Galeri</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
 </nav>
 
-<section class="hero">
-  <h2>Project Kami</h2>
-  <p>Beberapa hasil pekerjaan terbaik kami</p>
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <p class="breadcrumb"><a href="index.html">Beranda</a> / Proyek</p>
+  <h1>Proyek<em>Terbaik Kami</em></h1>
+  <p>Setiap karya adalah bukti komitmen kami terhadap kualitas cetak premium di Sorong, Papua Barat.</p>
+  <div class="header-bar"></div>
+</header>
+
+<!-- STATS -->
+<div class="stats-strip" id="statsStrip">
+  <!-- filled by JS -->
+</div>
+
+<!-- FILTER -->
+<div class="filter-wrap" id="filterWrap">
+  <span class="filter-label">Filter:</span>
+  <!-- filled by JS -->
+</div>
+
+<!-- GRID -->
+<section class="projects-wrap">
+  <div class="projects-grid" id="projectsGrid"></div>
+  <div class="empty-state" id="emptyState">Tidak ada proyek dalam kategori ini.</div>
 </section>
 
-<section class="projects-container">
-  <div id="projectList" class="projects-grid"></div>
-</section>
+<!-- CTA -->
+<div class="cta-strip">
+  <h2>Siap Mulai<span>Proyek Anda?</span></h2>
+  <a href="#kontak" class="cta-btn">Hubungi Kami Sekarang</a>
+</div>
 
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 ADAM12 PRINTING</p>
+  <div class="logo">ADAM<span>12</span> PRINTING</div>
+  <p>© 2025 ADAM12 Printing — Sorong, Papua Barat</p>
 </footer>
 
-<script src="data.js"></script>
-<script>
-const container = document.getElementById("projectList");
-
-if (container && typeof projects !== "undefined") {
-  projects.forEach(p => {
-    container.innerHTML += `
-      <div class="project-card">
-        <img src="${p.image}" alt="${p.title}">
-        <div class="project-body">
-          <h3>${p.title}</h3>
-        </div>
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" role="dialog" aria-modal="true">
+  <div class="modal-wrap">
+    <button class="modal-close" id="modalClose" aria-label="Tutup">✕</button>
+    <div class="modal" id="modalInner">
+      <img id="modalImg" src="" alt=""/>
+      <div class="modal-body">
+        <div class="modal-meta" id="modalMeta"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
       </div>
-    `;
+    </div>
+  </div>
+</div>
+
+<!-- DATA FILE (load before this script in real setup) -->
+<script>
+// ── Inline data.js (sinkron otomatis — ganti dengan <script src="data.js"> jika file terpisah) ──
+const projects = [
+  { id:1, title:"Baliho Kampanye Kota Sorong",   category:"Baliho",        year:"2025", size:"4×8 Meter",      image:"https://placehold.co/600x400/1A7A2E/FFD600?text=BALIHO+KAMPANYE",  desc:"Produksi baliho ukuran besar untuk kampanye sosial pemerintah kota, printing resolusi tinggi tahan cuaca." },
+  { id:2, title:"Neon Box Toko Elektronik",       category:"Neon Box",      year:"2025", size:"2×1 Meter",      image:"https://placehold.co/600x400/0A0A0A/FFD600?text=NEON+BOX",          desc:"Neon box akrilik dengan huruf timbul untuk papan nama toko elektronik di pusat perbelanjaan Sorong." },
+  { id:3, title:"Branding Armada Angkutan Kota",  category:"Vehicle Wrap",  year:"2025", size:"Full Wrap",      image:"https://placehold.co/600x400/C9A800/0A0A0A?text=VEHICLE+WRAP",      desc:"Wrapping vinyl penuh untuk 12 unit angkutan kota sebagai media iklan berjalan yang efektif." },
+  { id:4, title:"Spanduk Event Olahraga",         category:"Spanduk",       year:"2024", size:"10×1.2 Meter",   image:"https://placehold.co/600x400/25B041/0A0A0A?text=SPANDUK+EVENT",     desc:"Cetak spanduk panjang untuk event turnamen olahraga tingkat provinsi Papua Barat." },
+  { id:5, title:"Signage Hotel Grand Sorong",     category:"Signage",       year:"2024", size:"Custom",         image:"https://placehold.co/600x400/1C1C1C/FFD600?text=SIGNAGE+HOTEL",     desc:"Pembuatan sistem signage interior & eksterior lengkap untuk hotel bintang tiga di kota Sorong." },
+  { id:6, title:"Kartu Nama & Stationery",        category:"Offset Print",  year:"2024", size:"Paket Lengkap",  image:"https://placehold.co/600x400/1A7A2E/F5F0E8?text=KARTU+NAMA",        desc:"Cetak kartu nama, kop surat, amplop, dan brosur profil perusahaan untuk PT. Maju Bersama Papua." }
+];
+
+// ── Render Stats ──
+function renderStats() {
+  const categories = [...new Set(projects.map(p => p.category))];
+  const years      = [...new Set(projects.map(p => p.year))];
+  const strip = document.getElementById('statsStrip');
+  strip.innerHTML = `
+    <div class="stat-item"><div class="stat-num">${projects.length}</div><div class="stat-lbl">Total Proyek</div></div>
+    <div class="stat-item"><div class="stat-num">${categories.length}</div><div class="stat-lbl">Kategori</div></div>
+    <div class="stat-item"><div class="stat-num">${years.length > 1 ? years[years.length-1]+'–'+years[0] : years[0]}</div><div class="stat-lbl">Tahun Aktif</div></div>
+    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-lbl">Kepuasan Klien</div></div>
+  `;
+}
+
+// ── Render Filter Buttons ──
+function renderFilters(active) {
+  const categories = ['Semua', ...new Set(projects.map(p => p.category))];
+  const wrap = document.getElementById('filterWrap');
+  wrap.innerHTML = '<span class="filter-label">Filter:</span>';
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (cat === active ? ' active' : '');
+    btn.textContent = cat;
+    btn.addEventListener('click', () => renderProjects(cat));
+    wrap.appendChild(btn);
   });
 }
-</script>
 
+// ── Render Project Cards ──
+let currentFilter = 'Semua';
+function renderProjects(filter) {
+  currentFilter = filter;
+  renderFilters(filter);
+  const grid  = document.getElementById('projectsGrid');
+  const empty = document.getElementById('emptyState');
+  const list  = filter === 'Semua' ? projects : projects.filter(p => p.category === filter);
+
+  if (!list.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = list.map((p, i) => `
+    <article class="project-card" style="animation-delay:${i * 60}ms" data-id="${p.id}" tabindex="0" role="button" aria-label="Lihat detail ${p.title}">
+      <div class="card-img-wrap">
+        <img src="${p.image}" alt="${p.title}" loading="lazy"/>
+        <div class="card-overlay"></div>
+        <span class="card-cat">${p.category}</span>
+        <span class="card-year">${p.year}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${p.title}</div>
+        <div class="card-size">📐 ${p.size}</div>
+        <p class="card-desc">${p.desc}</p>
+        <span class="card-link">Lihat Detail</span>
+      </div>
+    </article>
+  `).join('');
+
+  // attach click
+  grid.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click',  () => openModal(+card.dataset.id));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter') openModal(+card.dataset.id); });
+  });
+}
+
+// ── Modal ──
+function openModal(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modalImg').src = p.image;
+  document.getElementById('modalImg').alt = p.title;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalDesc').textContent  = p.desc;
+  document.getElementById('modalMeta').innerHTML = `
+    <span class="modal-tag">${p.category}</span>
+    <span class="modal-tag green">${p.year}</span>
+    <span class="modal-tag gold">📐 ${p.size}</span>
+  `;
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalBg').addEventListener('click', e => { if (e.target === document.getElementById('modalBg')) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── INIT ──
+renderStats();
+renderProjects('Semua');
+</script>
 </body>
 </html>
