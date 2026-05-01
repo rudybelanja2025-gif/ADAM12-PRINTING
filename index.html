@@ -4,62 +4,818 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ADAM12 PRINTING</title>
-<meta name="description" content="ADAM12 PRINTING: Percetakan, Advertising, dan Reklame profesional."/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<meta name="description" content="ADAM12 PRINTING: Percetakan, Advertising, dan Reklame profesional di Sorong, Papua Barat."/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
-body{font-family:'DM Sans',sans-serif;margin:0;background:#F7F1E8}
-header{padding:20px;background:#000;color:#fff;text-align:center}
-nav{display:flex;justify-content:center;gap:15px;background:#222;padding:10px}
-nav a{color:#fff;text-decoration:none}
-.hero{padding:80px;text-align:center}
-footer{text-align:center;padding:20px;background:#000;color:#fff}
+  :root {
+    --kuning: #FFD600;
+    --kuning-gelap: #C9A800;
+    --hitam: #0A0A0A;
+    --hijau: #1A7A2E;
+    --hijau-terang: #25B041;
+    --putih: #F5F0E8;
+    --abu: #1C1C1C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--hitam);
+    color: var(--putih);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--hitam);
+    border-bottom: 3px solid var(--kuning);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+  }
+
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-badge {
+    background: var(--kuning);
+    color: var(--hitam);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  nav {
+    display: flex;
+    gap: 4px;
+  }
+
+  nav a {
+    color: var(--putih);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  nav a:hover {
+    color: var(--kuning);
+    border-color: var(--kuning);
+  }
+
+  nav a.active {
+    background: var(--kuning);
+    color: var(--hitam);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--kuning);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--hitam);
+    background: var(--hitam);
+    color: var(--kuning);
+    display: inline-block;
+    padding: 4px 10px;
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 9vw, 120px);
+    line-height: 0.9;
+    color: var(--hitam);
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+  }
+
+  .hero-title span {
+    color: var(--hijau);
+    display: block;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--hitam);
+    color: var(--kuning);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    text-decoration: none;
+    border: 2px solid var(--hitam);
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: var(--hijau);
+    border-color: var(--hijau);
+    color: #fff;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--hitam);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    text-decoration: none;
+    border: 2px solid var(--hitam);
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    background: var(--hitam);
+    color: var(--kuning);
+  }
+
+  .hero-right {
+    background: var(--abu);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--hijau) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hijau) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.08;
+  }
+
+  .hero-stat-strip {
+    background: var(--hijau);
+    padding: 28px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-item .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--kuning);
+    line-height: 1;
+  }
+
+  .stat-item .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-top: 4px;
+  }
+
+  .hero-visual {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2;
+  }
+
+  .big-circle {
+    width: 260px;
+    height: 260px;
+    border: 3px solid var(--kuning);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .big-circle::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 1px dashed rgba(255,214,0,0.3);
+    border-radius: 50%;
+  }
+
+  .big-circle .inner-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--kuning);
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--kuning);
+    color: var(--hitam);
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 3px solid var(--hitam);
+    border-bottom: 3px solid var(--hitam);
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .ticker-sep { margin: 0 24px; color: var(--hijau); }
+
+  /* ── LAYANAN ── */
+  .section {
+    padding: 100px 60px;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--hijau-terang);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 5vw, 72px);
+    color: var(--putih);
+    line-height: 0.95;
+    margin-bottom: 60px;
+  }
+
+  .section-title em {
+    color: var(--kuning);
+    font-style: normal;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2px;
+    background: #222;
+    border: 2px solid #222;
+  }
+
+  .service-card {
+    background: var(--hitam);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s;
+    cursor: default;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--hijau);
+    transition: width 0.25s;
+  }
+
+  .service-card:hover {
+    background: #111;
+  }
+
+  .service-card:hover::before {
+    width: 100%;
+    opacity: 0.08;
+  }
+
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: rgba(255,214,0,0.12);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .service-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--kuning);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.7;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-section {
+    background: var(--hijau);
+    padding: 100px 60px;
+  }
+
+  #projects-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .project-card {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--kuning);
+  }
+
+  .project-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .project-card p {
+    padding: 12px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--putih);
+  }
+
+  /* ── GALLERY ── */
+  #gallery-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 4px;
+    margin-top: 16px;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: #222;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-item .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26,122,46,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .gallery-item:hover .overlay {
+    opacity: 1;
+  }
+
+  .gallery-item .overlay p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--kuning);
+    text-align: center;
+    padding: 8px;
+  }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    background: var(--kuning);
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .cta-strip h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 4vw, 60px);
+    color: var(--hitam);
+    line-height: 0.95;
+  }
+
+  .cta-strip h2 span {
+    color: var(--hijau);
+  }
+
+  .cta-strip p {
+    font-size: 15px;
+    color: #444;
+    margin-top: 10px;
+    max-width: 400px;
+  }
+
+  .cta-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--hitam);
+  }
+
+  .contact-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--hijau);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    border-top: 3px solid var(--hijau);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--kuning);
+    letter-spacing: 2px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--kuning);
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 1px;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    header { padding: 0 20px; height: 60px; }
+    nav a { padding: 6px 10px; font-size: 11px; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 60px 24px; }
+    .hero-right { min-height: 300px; }
+    .hero-stat-strip { grid-template-columns: 1fr 1fr; padding: 20px 24px; }
+
+    .section { padding: 60px 24px; }
+    .projects-section { padding: 60px 24px; }
+    .cta-strip { padding: 40px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    .footer-links { flex-wrap: wrap; gap: 16px; }
+  }
 </style>
 </head>
-
 <body>
 
+<!-- HEADER -->
 <header>
-<h1>ADAM12 PRINTING</h1>
-<p>Percetakan, Advertising & Reklame</p>
+  <div class="logo-wrap">
+    <div class="logo-badge">ADAM12</div>
+    <div class="logo-sub">Printing<br>& Advertising</div>
+  </div>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </nav>
 </header>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="projects.html">Projects</a>
-<a href="gallery.html">Gallery</a>
-<a href="about.html">About</a>
-</nav>
-
+<!-- HERO -->
 <section class="hero">
-<h2>Digital Printing Profesional</h2>
-<p>Kami melayani banner, stiker, baliho dan kebutuhan promosi</p>
+  <div class="hero-left">
+    <div class="hero-tag">&#9670; Sorong, Papua Barat</div>
+    <h1 class="hero-title">
+      Cetak<br>
+      <span>Lebih</span>
+      Kuat.
+    </h1>
+    <p class="hero-desc">
+      Percetakan digital profesional untuk banner, baliho, stiker, neon box, dan kebutuhan reklame bisnis Anda.
+    </p>
+    <div class="hero-cta">
+      <a href="projects.html" class="btn-primary">Lihat Proyek</a>
+      <a href="about.html" class="btn-outline">Tentang Kami</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-visual">
+      <div class="big-circle">
+        <div class="inner-text">DIGITAL<br>PRINTING</div>
+      </div>
+    </div>
+    <div class="hero-stat-strip">
+      <div class="stat-item">
+        <div class="num">500+</div>
+        <div class="label">Proyek Selesai</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">8+</div>
+        <div class="label">Tahun Pengalaman</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">300+</div>
+        <div class="label">Klien Puas</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">24H</div>
+        <div class="label">Layanan Kilat</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="projects-preview"></section>
-<section id="gallery-preview"></section>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    BANNER &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    BALIHO &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    STIKER VINYL &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    NEON BOX &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    SPANDUK &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    SIGNAGE &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    CUTTING STIKER &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    KARTU NAMA &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    BANNER &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    BALIHO &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    STIKER VINYL &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    NEON BOX &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    SPANDUK &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    SIGNAGE &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    CUTTING STIKER &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    KARTU NAMA &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+  </div>
+</div>
 
+<!-- LAYANAN -->
+<section class="section">
+  <div class="section-label">&#9670; Layanan Kami</div>
+  <h2 class="section-title">Apa yang <em>Kami</em><br>Kerjakan</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Digital Printing</div>
+      <p class="service-desc">Cetak banner, poster, spanduk, flyer dengan resolusi tinggi dan warna tajam. Cepat & tahan lama.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Baliho & Billboard</div>
+      <p class="service-desc">Produksi baliho skala besar untuk promosi luar ruang. Ukuran custom sesuai kebutuhan.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Neon Box & Signage</div>
+      <p class="service-desc">Pembuatan papan nama, neon box, huruf timbul, dan signage interior/eksterior profesional.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Stiker & Cutting</div>
+      <p class="service-desc">Stiker vinyl, cutting stiker, branding kendaraan, dan wrapping mobil dengan material premium.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-name">Percetakan Offset</div>
+      <p class="service-desc">Kartu nama, brosur, katalog, undangan, dan berbagai kebutuhan cetak komersial berkualitas.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-name">Desain Grafis</div>
+      <p class="service-desc">Tim desainer berpengalaman siap membantu dari konsep hingga hasil cetak yang memukau.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROYEK -->
+<section class="projects-section">
+  <div class="section-label">&#9670; Portfolio</div>
+  <h2 class="section-title" style="color:#fff;">Proyek <em style="color:var(--kuning);">Terbaru</em></h2>
+  <div id="projects-preview">
+    <!-- Diisi dari data.js, atau tampil placeholder jika tidak ada -->
+    <div class="project-card" style="opacity:0.4;text-align:center;padding:40px 20px;">
+      <p style="text-transform:none;letter-spacing:0;color:#ccc;">Tambahkan proyek di data.js</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" style="background:#0D0D0D;">
+  <div class="section-label">&#9670; Galeri</div>
+  <h2 class="section-title">Karya <em>Kami</em></h2>
+  <div id="gallery-preview">
+    <div style="opacity:0.4;padding:40px 0;color:#666;font-size:14px;">
+      Tambahkan foto di data.js
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <div>
+    <h2>Siap Mulai<br><span>Proyek Anda?</span></h2>
+    <p>Hubungi kami sekarang dan dapatkan konsultasi gratis serta estimasi harga terbaik.</p>
+  </div>
+  <div class="cta-contact">
+    <div class="contact-item">
+      <div class="contact-dot"></div>
+      WhatsApp: <strong>0812-XXXX-XXXX</strong>
+    </div>
+    <div class="contact-item">
+      <div class="contact-dot"></div>
+      Instagram: <strong>@adam12printing</strong>
+    </div>
+    <div class="contact-item">
+      <div class="contact-dot"></div>
+      Sorong, Papua Barat
+    </div>
+    <a href="about.html" class="btn-primary" style="margin-top:8px;">Hubungi Kami</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-<p>© 2026 ADAM12 PRINTING</p>
+  <div class="footer-logo">ADAM12 PRINTING</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </div>
+  <div class="footer-copy">© 2026 ADAM12 PRINTING. All rights reserved.</div>
 </footer>
 
 <script src="data.js"></script>
 <script>
-if(typeof projects!=="undefined"){
-document.getElementById("projects-preview").innerHTML=projects.map(p=>`
-<div>
-<img src="${p.image}" width="150">
-<p>${p.title}</p>
-</div>`).join('');
-}
+  // Projects
+  if (typeof projects !== "undefined" && projects.length > 0) {
+    document.getElementById("projects-preview").innerHTML = projects.map(p => `
+      <div class="project-card">
+        <img src="${p.image}" alt="${p.title}">
+        <p>${p.title}</p>
+      </div>
+    `).join('');
+  }
 
-if(typeof gallery!=="undefined"){
-document.getElementById("gallery-preview").innerHTML=gallery.map(g=>`
-<div>
-<img src="${g.image}" width="150">
-<p>${g.title}</p>
-</div>`).join('');
-}
+  // Gallery
+  if (typeof gallery !== "undefined" && gallery.length > 0) {
+    document.getElementById("gallery-preview").innerHTML = gallery.map(g => `
+      <div class="gallery-item">
+        <img src="${g.image}" alt="${g.title}">
+        <div class="overlay"><p>${g.title}</p></div>
+      </div>
+    `).join('');
+  }
 </script>
-
 </body>
 </html>
