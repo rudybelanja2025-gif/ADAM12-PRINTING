@@ -1,0 +1,44 @@
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #111;
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  background: #000;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background: #222;
+  padding: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  text-align: center;
+  padding: 50px;
+  background: linear-gradient(orange, yellow);
+  color: black;
+}
+
+.card {
+  background: #222;
+  margin: 10px;
+  padding: 10px;
+  display: inline-block;
+}
+
+.gallery-img {
+  width: 200px;
+  margin: 5px;
+}
