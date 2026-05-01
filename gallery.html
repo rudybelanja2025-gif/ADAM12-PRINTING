@@ -1,52 +1,857 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallery - ADAM12 PRINTING</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Galeri — ADAM12 PRINTING</title>
+<meta name="description" content="Galeri karya ADAM12 PRINTING: banner, baliho, neon box, stiker, signage, dan lebih banyak lagi."/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --kuning: #FFD600;
+    --kuning-gelap: #C9A800;
+    --hitam: #0A0A0A;
+    --hijau: #1A7A2E;
+    --hijau-terang: #25B041;
+    --putih: #F5F0E8;
+    --abu: #1C1C1C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--hitam);
+    color: var(--putih);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--hitam);
+    border-bottom: 3px solid var(--kuning);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+  }
+
+  .logo-wrap { display: flex; align-items: center; gap: 14px; }
+
+  .logo-badge {
+    background: var(--kuning);
+    color: var(--hitam);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  nav { display: flex; gap: 4px; }
+
+  nav a {
+    color: var(--putih);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  nav a:hover { color: var(--kuning); border-color: var(--kuning); }
+  nav a.active { background: var(--kuning); color: var(--hitam); }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: var(--abu);
+    padding: 80px 60px 60px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--kuning);
+  }
+
+  .page-hero::before {
+    content: 'GALERI';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(100px, 16vw, 200px);
+    color: rgba(255,214,0,0.04);
+    line-height: 1;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .page-hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--hijau) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hijau) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.05;
+  }
+
+  .page-hero-content { position: relative; z-index: 2; }
+
+  .page-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--hijau-terang);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .page-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--hijau-terang);
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 7vw, 100px);
+    line-height: 0.9;
+    color: var(--putih);
+    margin-bottom: 20px;
+  }
+
+  .page-title em {
+    color: var(--kuning);
+    font-style: normal;
+  }
+
+  .page-desc {
+    font-size: 16px;
+    color: #888;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: #111;
+    border-bottom: 2px solid #222;
+    padding: 0 60px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .filter-bar::-webkit-scrollbar { display: none; }
+
+  .filter-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    padding: 20px 24px 20px 0;
+    border-right: 1px solid #222;
+    margin-right: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .filter-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #666;
+    padding: 20px 20px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    top: 2px;
+  }
+
+  .filter-btn:hover { color: var(--kuning); }
+
+  .filter-btn.active {
+    color: var(--kuning);
+    border-bottom-color: var(--kuning);
+  }
+
+  /* ── GALLERY GRID ── */
+  .gallery-section {
+    padding: 60px;
+    min-height: 60vh;
+  }
+
+  .gallery-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 32px;
+  }
+
+  .gallery-count span {
+    color: var(--kuning);
+    font-size: 16px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 3px;
+  }
+
+  /* ── GALLERY CARD ── */
+  .gallery-card {
+    position: relative;
+    overflow: hidden;
+    background: #111;
+    aspect-ratio: 1;
+    cursor: pointer;
+    display: block;
+  }
+
+  /* Featured card spans 2 cols */
+  .gallery-card.featured {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(0.85);
+  }
+
+  .gallery-card:hover img {
+    transform: scale(1.07);
+    filter: brightness(0.6);
+  }
+
+  /* Top accent bar */
+  .gallery-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--kuning);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: 3;
+  }
+
+  .gallery-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Overlay */
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.92) 0%,
+      rgba(26,122,46,0.3) 50%,
+      transparent 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+
+  .gallery-card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .card-category {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--kuning);
+    background: rgba(0,0,0,0.6);
+    display: inline-block;
+    padding: 3px 8px;
+    margin-bottom: 8px;
+    width: fit-content;
+  }
+
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--putih);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .card-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--hijau-terang);
+  }
+
+  .card-action::after {
+    content: '→';
+    font-size: 14px;
+    transition: transform 0.2s;
+  }
+
+  .gallery-card:hover .card-action::after {
+    transform: translateX(4px);
+  }
+
+  /* Category badge always visible */
+  .card-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--hitam);
+    color: var(--kuning);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    z-index: 3;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+  }
+
+  .gallery-card:hover .card-badge {
+    opacity: 0;
+  }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(8px);
+  }
+
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox-inner {
+    position: relative;
+    max-width: 900px;
+    width: 90vw;
+    transform: scale(0.92);
+    transition: transform 0.3s;
+  }
+
+  .lightbox.open .lightbox-inner {
+    transform: scale(1);
+  }
+
+  .lightbox-img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    display: block;
+    border-top: 4px solid var(--kuning);
+  }
+
+  .lightbox-info {
+    background: var(--abu);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2px solid var(--hijau);
+  }
+
+  .lightbox-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--putih);
+  }
+
+  .lightbox-cat {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--kuning);
+    margin-top: 4px;
+  }
+
+  .lightbox-close {
+    background: var(--kuning);
+    color: var(--hitam);
+    border: none;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    padding: 8px 20px;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+
+  .lightbox-close:hover { background: var(--hijau-terang); color: #fff; }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--kuning);
+    color: var(--hitam);
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 10;
+  }
+
+  .lightbox-nav:hover { background: var(--hijau-terang); color: #fff; }
+  .lightbox-nav.prev { left: -60px; }
+  .lightbox-nav.next { right: -60px; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 100px 20px;
+    color: #333;
+  }
+
+  .empty-state .big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: #1a1a1a;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--kuning);
+    color: var(--hitam);
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 3px solid var(--hitam);
+    border-bottom: 3px solid var(--hitam);
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .ticker-sep { margin: 0 24px; color: var(--hijau); }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    background: var(--hijau);
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    border-top: 3px solid var(--kuning);
+  }
+
+  .cta-strip h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    color: #fff;
+    line-height: 0.95;
+  }
+
+  .cta-strip h2 em {
+    color: var(--kuning);
+    font-style: normal;
+  }
+
+  .cta-strip p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 10px;
+    max-width: 360px;
+  }
+
+  .btn-primary {
+    background: var(--kuning);
+    color: var(--hitam);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    border: 2px solid var(--kuning);
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: var(--hitam);
+    color: var(--kuning);
+    border-color: var(--kuning);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    border-top: 3px solid var(--hijau);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--kuning);
+    letter-spacing: 2px;
+  }
+
+  .footer-links { display: flex; gap: 24px; }
+
+  .footer-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--kuning); }
+
+  .footer-copy { font-size: 12px; color: #444; letter-spacing: 1px; }
+
+  /* ── CARD ENTRANCE ANIMATION ── */
+  .gallery-card {
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    header { padding: 0 20px; height: 60px; }
+    nav a { padding: 6px 10px; font-size: 11px; }
+
+    .page-hero { padding: 60px 24px 40px; }
+    .filter-bar { padding: 0 24px; }
+    .gallery-section { padding: 40px 16px; }
+    .gallery-card.featured { grid-column: span 1; aspect-ratio: 1; }
+    .lightbox-nav.prev { left: -4px; }
+    .lightbox-nav.next { right: -4px; }
+    .cta-strip { padding: 40px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    .footer-links { flex-wrap: wrap; gap: 16px; }
+  }
+</style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
-  <h1>ADAM12 PRINTING</h1>
-  <p>Percetakan, Advertising & Reklame</p>
+  <div class="logo-wrap">
+    <div class="logo-badge">ADAM12</div>
+    <div class="logo-sub">Printing<br>& Advertising</div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="gallery.html" class="active">Gallery</a>
+    <a href="about.html">About</a>
+  </nav>
 </header>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="projects.html">Projects</a>
-  <a href="gallery.html" class="active">Gallery</a>
-</nav>
-
-<section class="hero">
-  <h2>Gallery Hasil Cetak</h2>
-  <p>Contoh hasil pekerjaan kami</p>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <div class="page-label">Galeri Karya</div>
+    <h1 class="page-title">Hasil <em>Kerja</em><br>Kami</h1>
+    <p class="page-desc">
+      Koleksi lengkap karya cetak terbaik ADAM12 PRINTING — dari banner, baliho, neon box, stiker, hingga signage profesional.
+    </p>
+  </div>
 </section>
 
-<section class="gallery-container">
-  <div id="gallery" class="gallery-grid"></div>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    BANNER &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    BALIHO &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    STIKER VINYL &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    NEON BOX &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    SPANDUK &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    SIGNAGE &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    CUTTING STIKER &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    VEHICLE WRAP &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    BANNER &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    BALIHO &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    STIKER VINYL &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    NEON BOX &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    SPANDUK &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    SIGNAGE &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    CUTTING STIKER &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+    VEHICLE WRAP &nbsp;<span class="ticker-sep">&#9679;</span>&nbsp;
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filter-bar">
+  <div class="filter-label">&#9670; Filter:</div>
+  <!-- Dynamically populated by JS -->
+</div>
+
+<!-- GALLERY SECTION -->
+<section class="gallery-section">
+  <div class="gallery-count" id="gallery-count">
+    Menampilkan <span id="count-num">0</span> karya
+  </div>
+  <div class="gallery-grid" id="gallery-grid">
+    <!-- Populated by JS -->
+  </div>
 </section>
 
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div>
+    <h2>Ingin Karya<br><em>Seperti Ini?</em></h2>
+    <p>Konsultasikan kebutuhan cetak Anda bersama tim kami, gratis tanpa biaya apapun.</p>
+  </div>
+  <a href="about.html" class="btn-primary">Hubungi Kami Sekarang</a>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 ADAM12 PRINTING</p>
+  <div class="footer-logo">ADAM12 PRINTING</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </div>
+  <div class="footer-copy">© 2026 ADAM12 PRINTING. All rights reserved.</div>
 </footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-nav prev" id="lb-prev">&#8592;</button>
+    <button class="lightbox-nav next" id="lb-next">&#8594;</button>
+    <img class="lightbox-img" id="lb-img" src="" alt=""/>
+    <div class="lightbox-info">
+      <div>
+        <div class="lightbox-title" id="lb-title"></div>
+        <div class="lightbox-cat" id="lb-cat"></div>
+      </div>
+      <button class="lightbox-close" id="lb-close">TUTUP ✕</button>
+    </div>
+  </div>
+</div>
 
 <script src="data.js"></script>
 <script>
-const galleryContainer = document.getElementById("gallery");
+  // ── Kategori unik dari data galeri
+  const allCategories = ['Semua', ...new Set(gallery.map(g => g.category))];
+  let activeFilter = 'Semua';
+  let currentIndex = 0;
+  let filteredItems = [...gallery];
 
-if (galleryContainer && typeof gallery !== "undefined") {
-  gallery.forEach(item => {
-    galleryContainer.innerHTML += `
-      <div class="gallery-card">
-        <img src="${item.image}" alt="${item.title}">
-        <h3>${item.title}</h3>
-      </div>
-    `;
+  // ── Render filter buttons
+  const filterBar = document.getElementById('filter-bar');
+  allCategories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (cat === 'Semua' ? ' active' : '');
+    btn.textContent = cat;
+    btn.dataset.cat = cat;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = cat;
+      renderGallery();
+    });
+    filterBar.appendChild(btn);
   });
-}
+
+  // ── Render gallery cards
+  function renderGallery() {
+    filteredItems = activeFilter === 'Semua'
+      ? [...gallery]
+      : gallery.filter(g => g.category === activeFilter);
+
+    const grid = document.getElementById('gallery-grid');
+    document.getElementById('count-num').textContent = filteredItems.length;
+
+    if (filteredItems.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1;">
+          <div class="big">0</div>
+          <p style="color:#555;letter-spacing:2px;text-transform:uppercase;font-size:13px;">Tidak ada karya di kategori ini</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = filteredItems.map((item, idx) => {
+      const isFeatured = idx === 0 && activeFilter === 'Semua';
+      return `
+        <div class="gallery-card${isFeatured ? ' featured' : ''}"
+             data-idx="${idx}"
+             style="animation-delay:${idx * 0.05}s">
+          <img src="${item.image}" alt="${item.title}" loading="lazy"/>
+          <div class="card-badge">${item.category}</div>
+          <div class="card-overlay">
+            <div class="card-category">${item.category}</div>
+            <div class="card-title">${item.title}</div>
+            <div class="card-action">Lihat Detail</div>
+          </div>
+        </div>`;
+    }).join('');
+
+    // Attach click events
+    grid.querySelectorAll('.gallery-card').forEach(card => {
+      card.addEventListener('click', () => {
+        currentIndex = parseInt(card.dataset.idx);
+        openLightbox(currentIndex);
+      });
+    });
+  }
+
+  // ── Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lb-img');
+  const lbTitle = document.getElementById('lb-title');
+  const lbCat   = document.getElementById('lb-cat');
+
+  function openLightbox(idx) {
+    const item = filteredItems[idx];
+    lbImg.src   = item.image;
+    lbImg.alt   = item.title;
+    lbTitle.textContent = item.title;
+    lbCat.textContent   = '◆ ' + item.category;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+  document.getElementById('lb-prev').addEventListener('click', e => {
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length;
+    openLightbox(currentIndex);
+  });
+
+  document.getElementById('lb-next').addEventListener('click', e => {
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % filteredItems.length;
+    openLightbox(currentIndex);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length; openLightbox(currentIndex); }
+    if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % filteredItems.length; openLightbox(currentIndex); }
+  });
+
+  // ── Init
+  renderGallery();
 </script>
 </body>
 </html>
