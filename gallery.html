@@ -35,19 +35,18 @@
 
 <script src="data.js"></script>
 <script>
-const gallery = document.getElementById("gallery");
+const galleryContainer = document.getElementById("gallery");
 
-if (gallery && typeof projects !== "undefined") {
-  projects.forEach(p => {
-    gallery.innerHTML += `
+if (galleryContainer && typeof gallery !== "undefined") {
+  gallery.forEach(item => {
+    galleryContainer.innerHTML += `
       <div class="gallery-card">
-        <img src="${p.image}" alt="${p.title}">
-        <h3>${p.title}</h3>
+        <img src="${item.image}" alt="${item.title}">
+        <h3>${item.title}</h3>
       </div>
     `;
   });
 }
 </script>
-
 </body>
 </html>
